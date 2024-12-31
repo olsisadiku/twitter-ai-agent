@@ -1,36 +1,35 @@
 from langchain_openai import ChatOpenAI
 from crewai import Crew
-from config import OPENAI_API_KEY, DEFAULT_LLM_MODEL, DEFAULT_TEMPERATURE
+from config import DEFAULT_LLM_MODEL, DEFAULT_TEMPERATURE
 from agents import create_agents
 from tasks import create_tasks
 
-def run_twitter_analysis(niche):
-    # Initialize the LLM
+def analyze_trends(niche):
+    # Initialize LLM
     llm = ChatOpenAI(
         model_name=DEFAULT_LLM_MODEL,
         temperature=DEFAULT_TEMPERATURE
     )
     
-    # Create agents
-    trend_analyzer, content_strategist, content_creator = create_agents(llm)
+    # Create agent (just trend researcher)
+    trend_researcher = create_agents(llm)
     
     # Create tasks
-    tasks = create_tasks(trend_analyzer, content_strategist, content_creator, niche)
+    tasks = create_tasks(trend_researcher, niche)
     
-    # Create and run crew
+    # Create crew
     crew = Crew(
-        agents=[trend_analyzer, content_strategist, content_creator],
+        agents=[trend_researcher],
         tasks=tasks,
-        verbose=2
+        verbose=True
     )
     
+    # Run the analysis and get result
     result = crew.kickoff()
-    return result
+    return str(result)
 
 if __name__ == "__main__":
-    # This will only run when main.py is run directly
-    USER_NICHE = "AI and Technology"
-    print("Starting X (Twitter) trend analysis and content generation...")
-    result = run_twitter_analysis(USER_NICHE)
+    niche = "AI and Technology"
+    result = analyze_trends(niche)
     print("\n=== Results ===")
     print(result)

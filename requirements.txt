@@ -1,5 +1,6 @@
 crewai
 langchain-openai
 python-dotenv
-tweepy
 streamlit
+tweepy
+langchain

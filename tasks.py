@@ -1,38 +1,31 @@
 from crewai import Task
 
-def create_tasks(trend_analyzer, content_strategist, content_creator, niche):
+def create_tasks(trend_researcher, niche):
     trend_analysis_task = Task(
-        description=f"""Analyze X (Twitter) to identify today's top trending topics. 
-        Focus on:
-        1. Overall trending topics
-        2. Trending topics within the {niche} niche
-        3. Posts with highest engagement
-        4. Key hashtags and their performance
+        description=f"""Analyze current trending topics on X (Twitter) in the {niche} niche.
         
-        Provide a structured analysis of findings.""",
-        agent=trend_analyzer
+        For each topic you identify:
+        1. Explain why it's trending THIS week specifically
+        2. Include example viral tweets about this topic
+        3. Analyze what made these tweets successful
+        
+        Format your response exactly as follows:
+        
+        [NEW_TRENDS]
+        • Topic 1: (name)
+          Why New: (explanation why it's new this week)
+          Viral Tweet 1: (tweet text)
+          - URL: (link to tweet)
+          - Engagement: (approximate likes/retweets)
+          - Why Viral: (analysis)
+          Viral Tweet 2: (tweet text)
+          - URL: (link to tweet)
+          - Engagement: (approximate likes/retweets)
+          - Why Viral: (analysis)
+        
+        (Continue for each trending topic)""",
+        expected_output="""A structured analysis of new trending topics with viral tweets, their URLs, and engagement metrics.""",
+        agent=trend_researcher
     )
 
-    strategy_task = Task(
-        description=f"""Based on the trend analysis, develop a content strategy for the {niche} niche:
-        1. Identify which trends align with the niche
-        2. Analyze why these trends would resonate with the target audience
-        3. Suggest optimal posting times
-        4. Recommend relevant hashtags
-        
-        Create a strategic brief for content creation.""",
-        agent=content_strategist
-    )
-
-    content_creation_task = Task(
-        description=f"""Using the trend analysis and strategy, create:
-        1. 5 unique tweet suggestions
-        2. Each tweet should be optimized for engagement
-        3. Include relevant hashtags
-        4. Suggest any media types to include (images, videos, polls)
-        
-        Ensure tweets are authentic and aligned with {niche} niche voice.""",
-        agent=content_creator
-    )
-
-    return [trend_analysis_task, strategy_task, content_creation_task] 
+    return [trend_analysis_task] 

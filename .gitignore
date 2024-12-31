@@ -37,3 +37,6 @@ wheels/
 # OS specific files
 .DS_Store
 Thumbs.db 
+
+# Results
+results/ 
