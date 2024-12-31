@@ -12,5 +12,5 @@ TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_SECRET = os.getenv("TWITTER_ACCESS_SECRET")
 
 # Agent Configuration
-DEFAULT_LLM_MODEL = "gpt-4o-realtime-preview"       
+DEFAULT_LLM_MODEL = "gpt-4o-mini"              
 DEFAULT_TEMPERATURE = 0.7 

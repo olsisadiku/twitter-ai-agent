@@ -2,5 +2,6 @@ crewai
 langchain-openai
 python-dotenv
 streamlit
-tweepy
 langchain
+selenium
+webdriver_manager

@@ -1,31 +1,34 @@
 from crewai import Task
 
-def create_tasks(trend_researcher, niche):
-    trend_analysis_task = Task(
-        description=f"""Analyze current trending topics on X (Twitter) in the {niche} niche.
+def create_tasks(analyst):
+    viral_analysis = Task(
+        description="""Analyze viral tweets to understand what makes them successful.
         
-        For each topic you identify:
-        1. Explain why it's trending THIS week specifically
-        2. Include example viral tweets about this topic
-        3. Analyze what made these tweets successful
+        1. Find currently viral tweets
+        2. Analyze their content, style, and engagement
+        3. Identify common patterns and elements that contribute to virality
+        4. Provide insights on why these specific tweets went viral
         
-        Format your response exactly as follows:
+        Format your response with clear sections:
+        [VIRAL_TWEETS]
+        • Tweet content
+        • Engagement metrics
+        • Link to tweet
+        • Analysis of why it went viral
         
-        [NEW_TRENDS]
-        • Topic 1: (name)
-          Why New: (explanation why it's new this week)
-          Viral Tweet 1: (tweet text)
-          - URL: (link to tweet)
-          - Engagement: (approximate likes/retweets)
-          - Why Viral: (analysis)
-          Viral Tweet 2: (tweet text)
-          - URL: (link to tweet)
-          - Engagement: (approximate likes/retweets)
-          - Why Viral: (analysis)
+        [PATTERNS]
+        • Common elements across viral tweets
+        • Key factors contributing to virality
+        • Notable trends
         
-        (Continue for each trending topic)""",
-        expected_output="""A structured analysis of new trending topics with viral tweets, their URLs, and engagement metrics.""",
-        agent=trend_researcher
+        [INSIGHTS]
+        • Overall analysis
+        • Recommendations for creating viral content""",
+        expected_output="""A structured analysis containing:
+        1. List of viral tweets with their content, metrics, and links
+        2. Analysis of common patterns across viral tweets
+        3. Insights and recommendations for viral content creation""",
+        agent=analyst
     )
-
-    return [trend_analysis_task] 
+    
+    return [viral_analysis] 
